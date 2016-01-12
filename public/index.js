@@ -211,6 +211,16 @@ function rentalPrice(tabRent, tabCar)
 				}
 			}
 		var totalPrice = priceDist + priceTime;
+		var commi = 0.3*totalPrice;
+		totalPrice = totalPrice - commi;
+		
+		var insuranc = commi/2;
+		var roadsideAssist = 1*time;
+		var driv = commi - insuranc - roadsideAssist;
+		
+		tabRent[i].commission.assistance = roadsideAssist;
+		tabRent[i].commission.insurance = insuranc;
+		tabRent[i].commission.drivy = driv;
 		tabRent[i].price = totalPrice;
 		}
 	}
