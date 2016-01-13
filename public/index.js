@@ -214,9 +214,15 @@ function rentalPrice(tabRent, tabCar)
 		var commi = 0.3*totalPrice;
 		totalPrice = totalPrice - commi;
 		
+		var option = 0;
+		if(tabRent[i].options.deductibleReduction == true)
+		{
+		option = time*4;
+		}
+		
 		var insuranc = commi/2;
 		var roadsideAssist = 1*time;
-		var driv = commi - insuranc - roadsideAssist;
+		var driv = commi - insuranc - roadsideAssist + option;
 		
 		tabRent[i].commission.assistance = roadsideAssist;
 		tabRent[i].commission.insurance = insuranc;
