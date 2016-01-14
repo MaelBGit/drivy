@@ -174,7 +174,7 @@ function compareDate(date1, date2)
 
 }
 
-function rentalPrice(tabRent, tabCar)
+function rentalPrice(tabRent, tabCar, tabActors)
 {	
 	for(var i = 0; i<tabRent.length; i++)
 	{
@@ -185,34 +185,35 @@ function rentalPrice(tabRent, tabCar)
 		
 		for(var y = 0; y<tabCar.length; y++)
 		{
-			if(idCar = tabCar[i].id)
+			if(idCar == tabCar[y].id)
 			{
-				var priceDist = tabCar[i].pricePerKm * distanc;
-				var priceTime = 0;//tabCar[i].pricePerDay * time;
+				var priceDist = tabCar[y].pricePerKm * distanc;
+				var priceTime = 0;
 				
 				for(var t = 0; t<time; t++)
 				{
-					if(time == 1)
+					if(t == 0)
 					{
-						priceTime += tabCar[i].pricePerDay;
+						priceTime += tabCar[y].pricePerDay;
 					}
-					else if(time > 1 && time < 5)
+					else if(t > 0 && t < 4)
 					{
-						priceTime += 0.9*tabCar[i].pricePerDay;
+						priceTime += 0.9*tabCar[y].pricePerDay;
 					}
-					else if(time > 4 && time < 11)
+					else if(t > 5 && t < 10)
 					{
-						priceTime += 0.7*tabCar[i].pricePerDay;
+						priceTime += 0.7*tabCar[y].pricePerDay;
 					}
-					else if(time > 10)
+					else if(t > 9)
 					{
-						priceTime += 0.5*tabCar[i].pricePerDay;
+						priceTime += 0.5*tabCar[y].pricePerDay;
 					}
 				}
 			}
+			}
 		var totalPrice = priceDist + priceTime;
 		var commi = 0.3*totalPrice;
-		totalPrice = totalPrice - commi;
+		totalPrice = totalPrice;
 		
 		var option = 0;
 		if(tabRent[i].options.deductibleReduction == true)
@@ -228,12 +229,15 @@ function rentalPrice(tabRent, tabCar)
 		tabRent[i].commission.insurance = insuranc;
 		tabRent[i].commission.drivy = driv;
 		tabRent[i].price = totalPrice;
-		}
+		
 	}
 }
 
-rentalPrice(rentals, cars);
+
+
+rentalPrice(rentals, cars, actors);
 console.log(rentals);
+console.log(actors);
 
 
 
