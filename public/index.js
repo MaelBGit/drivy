@@ -210,26 +210,58 @@ function rentalPrice(tabRent, tabCar, tabActors)
 					}
 				}
 			}
-			}
-		var totalPrice = priceDist + priceTime;
-		var commi = 0.3*totalPrice;
-		totalPrice = totalPrice;
-		
-		var option = 0;
-		if(tabRent[i].options.deductibleReduction == true)
-		{
-		option = time*4;
+			
+					var option = 0;
+					if(tabRent[i].options.deductibleReduction == true)
+					{
+					option = time*4;
+					}
+							var totalPrice = priceDist + priceTime;
+				var commi = 0.3*totalPrice;	
+				var insuranc = commi/2;
+				var roadsideAssist = 1*time;
+				var driv = commi - insuranc - roadsideAssist + option;
+				var totalP = totalPrice + option;
 		}
-		
-		var insuranc = commi/2;
-		var roadsideAssist = 1*time;
-		var driv = commi - insuranc - roadsideAssist + option;
+
 		
 		tabRent[i].commission.assistance = roadsideAssist;
 		tabRent[i].commission.insurance = insuranc;
 		tabRent[i].commission.drivy = driv;
 		tabRent[i].price = totalPrice;
 		
+				
+		for(var u = 0; u<tabActors.length; u++)
+		{
+			if(tabActors[u].rentalId == tabRent[i].id)
+			{
+				for(var f = 0; f < tabActors[u].payment.length; f++)
+				{
+					if(tabActors[u].payment[f].who == "driver")
+					{
+						tabActors[u].payment[f].amount = totalP;
+					}
+					if(tabActors[u].payment[f].who == "owner")
+					{
+						tabActors[u].payment[f].amount = totalPrice - commi;
+					}
+					if(tabActors[u].payment[f].who == "insurance")
+					{
+						tabActors[u].payment[f].amount = insuranc;
+					}
+					if(tabActors[u].payment[f].who == "assistance")
+					{
+						tabActors[u].payment[f].amount = roadsideAssist;
+					}
+					if(tabActors[u].payment[f].who == "drivy")
+					{
+						tabActors[u].payment[f].amount = driv;
+					}
+			
+				}
+
+			}
+		}
 	}
 }
 
