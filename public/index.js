@@ -227,7 +227,7 @@ function rentalPrice(tabRent, tabCar, tabActors)
 					{
 						priceTime += 0.9*tabCar[y].pricePerDay;
 					}
-					else if(t > 5 && t < 10)
+					else if(t > 3 && t < 10)
 					{
 						priceTime += 0.7*tabCar[y].pricePerDay;
 					}
