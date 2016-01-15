@@ -165,6 +165,33 @@ var rentalModifications = [{
   'pickupDate': '2015-12-05'
 }];
 
+function replace(tabModif, tabRent)
+{
+	for(var i =0; i<tabModif.length; i++)
+	{
+		var idMo = tabModif[i].rentalId;
+		
+		for(var y =0; y<tabRent.length; y++)
+		{
+			if(tabRent[y].id == idMo)
+			{
+				if(tabModif[i].returnDate)
+				{
+					tabRent[y].returnDate = tabModif[i].returnDate;
+				}
+				if(tabModif[i].distance)
+				{	
+					tabRent[y].distance = tabModif[i].distance;
+				}
+				if(tabModif[i].pickupDate)
+				{
+					tabRent[y].pickupDate = tabModif[i].pickupDate;
+				}
+			}
+		}
+	}
+}
+
 function compareDate(date1, date2)
 {
 	var d1 = new Date(date1);
@@ -266,7 +293,7 @@ function rentalPrice(tabRent, tabCar, tabActors)
 }
 
 
-
+replace(rentalModifications, rentals);
 rentalPrice(rentals, cars, actors);
 console.log(rentals);
 console.log(actors);
